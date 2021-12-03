@@ -39,7 +39,7 @@ function List({
             position: 'relative',
           }}
         >
-          {rowVirtualizer.virtualItems.map(virtualRow => (
+          {rowVirtualizer.virtualItems.map((virtualRow) => (
             <div
               key={virtualRow.index}
               ref={onRef ? onRef(virtualRow) : undefined}
@@ -66,7 +66,7 @@ describe('useVirtual list', () => {
 
   beforeEach(() => {
     parentRef = React.createRef()
-    useVirtual = jest.fn(props => useVirtualImpl(props))
+    useVirtual = jest.fn((props) => useVirtualImpl(props))
 
     props = { parentRef, useVirtual }
   })
@@ -90,7 +90,7 @@ describe('useVirtual list', () => {
     expect(useVirtual).toHaveBeenCalledTimes(3)
   })
   it('should render given dynamic size', async () => {
-    const onRef = virtualRow => el => {
+    const onRef = (virtualRow) => (el) => {
       if (el) {
         jest.spyOn(el, 'offsetHeight', 'get').mockImplementation(() => 25)
       }
@@ -106,7 +106,7 @@ describe('useVirtual list', () => {
     expect(useVirtual).toHaveBeenCalledTimes(5)
   })
   it('should render given dynamic size after scroll', async () => {
-    const onRef = virtualRow => el => {
+    const onRef = (virtualRow) => (el) => {
       if (el) {
         jest.spyOn(el, 'offsetHeight', 'get').mockImplementation(() => 25)
       }
@@ -124,7 +124,7 @@ describe('useVirtual list', () => {
     expect(screen.queryByText('Row 1')).not.toBeInTheDocument()
     expect(screen.queryByText('Row 2')).toBeInTheDocument()
     await waitFor(() =>
-      expect(screen.queryByText('Row 11')).toBeInTheDocument()
+      expect(screen.queryByText('Row 11')).toBeInTheDocument(),
     )
     expect(screen.queryByText('Row 12')).not.toBeInTheDocument()
   })
@@ -137,7 +137,7 @@ describe('useVirtual list', () => {
   })
   it('should allow to provide useScroll', () => {
     let scrollOffset = 0
-    const scrollToFn = jest.fn(offset => {
+    const scrollToFn = jest.fn((offset) => {
       scrollOffset = offset
     })
     const { result, rerender } = renderHook(() =>
@@ -147,7 +147,7 @@ describe('useVirtual list', () => {
         overscan: 0,
         estimateSize: React.useCallback(() => 50, []),
         useScroll: () => ({ outerSize: 200, scrollOffset, scrollToFn }),
-      })
+      }),
     )
     expect(result.current.virtualItems.length).toBe(4)
     expect(result.current.virtualItems[3].index).toBe(3)
@@ -167,7 +167,7 @@ describe('useVirtual list', () => {
         useWindowObserver: () => ({ height: 200, width: '100%' }),
         overscan: 0,
         estimateSize: React.useCallback(() => 50, []),
-      })
+      }),
     )
     expect(result.current.virtualItems.length).toBe(4)
   })
@@ -180,7 +180,7 @@ describe('useVirtual list', () => {
         useWindowObserver: () => ({ height: 200, width: '100%' }),
         overscan: 0,
         estimateSize: React.useCallback(() => 50, []),
-      })
+      }),
     )
     expect(result.current.virtualItems[0].index).toBe(0)
     act(() => {

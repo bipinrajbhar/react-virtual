@@ -38,7 +38,9 @@ export const useElementScroll = ({
   const [element, setElement] = React.useState(parentRef.current)
 
   useIsomorphicLayoutEffect(() => {
-    setElement(parentRef.current)
+    if (parentRef?.current) {
+      setElement(parentRef.current)
+    }
   })
 
   useIsomorphicLayoutEffect(() => {

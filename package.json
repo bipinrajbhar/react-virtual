@@ -1,6 +1,6 @@
 {
   "name": "react-virtual-fork",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Hooks for virtualizing scrollable elements in React",
   "author": "tannerlinsley",
   "license": "MIT",
